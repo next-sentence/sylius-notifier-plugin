@@ -17,12 +17,12 @@ sylius_grid:
                     type: twig
                     label: lwc_sylius_notifier.ui.enabled
                     options:
-                        template: "@SyliusAdmin/shared/grid/field/enabled.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
                 onlyLoggedInUsers:
                     type: twig
                     label: lwc_sylius_notifier.ui.only_logged_in_users
                     options:
-                        template: "@SyliusUi/shared/grid/field/enabled.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/boolean.html.twig"
                 priority:
                     type: string
                     label: lwc_sylius_notifier.ui.priority
