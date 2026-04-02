@@ -1,0 +1,30 @@
+lwc_sylius_notifier:
+    ui:
+        notifications: Notifications
+        notification_templates: Notification templates
+        manage_notification_templates: Manage your notification templates
+        add_notification_template_email: Add template type email
+        add_notification_template_sms: Add template type sms
+        edit_notification_template: Edit notification template
+        add_notification_template: Add notification template
+        manage_notifications: Manage your notifications
+        edit_notification: Edit notification
+        add_notification: Add notification
+        channel: Channel
+        channel_email: Email
+        channel_sms: Sms
+        channel_in_app: In app
+        not_applicable: n/a
+        code: Code
+        description: Description
+        enabled: Enabled
+        only_logged_in_users: Only logged in users
+        priority: Priority
+        starts_at: Starts at
+        ends_at: Ends at
+        body: Body
+    menu:
+        notification_templates: Notification templates
+        notifications: Notifications
+    button:
+        preview_notification_template: Preview

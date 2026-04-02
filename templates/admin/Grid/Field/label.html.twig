@@ -1,0 +1,11 @@
+{% set labelClass = 'blue' %}
+
+{% if options.vars.labelClass is defined %}
+    {% set labelClass = options.vars.labelClass %}
+{% endif %}
+
+{% if data %}
+    <span class="ui {{ labelClass }} label">
+        {{ data }}
+    </span>
+{% endif %}

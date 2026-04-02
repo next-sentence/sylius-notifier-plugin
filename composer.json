@@ -10,7 +10,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "sylius/sylius": "^2.0"
+        "monsieurbiz/sylius-rich-editor-plugin": "^3.0",
+        "sylius/sylius": "^2.0",
+        "symfony/mailer": "^6.4 || ^7.4",
+        "symfony/notifier": "^6.4 || ^7.4",
+        "twig/cssinliner-extra": "^3.4",
+        "twig/extra-bundle": "^3.4",
+        "twig/inky-extra": "^3.4"
     },
     "require-dev": {
         "behat/behat": "^3.16",

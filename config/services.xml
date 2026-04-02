@@ -6,11 +6,16 @@
         xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <imports>
-        <import resource="services/**" />
+        <import resource="services/email.xml"/>
+        <import resource="services/event_listener.xml"/>
+        <import resource="services/factory.xml"/>
+        <import resource="services/fixture.xml"/>
+        <import resource="services/form.xml"/>
+        <import resource="services/menu.xml"/>
+        <import resource="services/messenger.xml"/>
+        <import resource="services/renderer.xml"/>
+        <import resource="services/serializer.xml"/>
+        <import resource="services/twig.xml"/>
+        <import resource="services/component.xml"/>
     </imports>
-
-    <services>
-        <service id="LWC\SyliusNotifierPlugin\Controller\GreetingController" autowire="true" autoconfigure="true" public="true" />
-        <!-- Put your services here -->
-    </services>
 </container>

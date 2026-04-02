@@ -1,4 +1,53 @@
-# Put your plugin configuration here
+# LWC Sylius Notifier Plugin configuration
 
 imports:
+    - { resource: "app/grids.yaml" }
     - { resource: "twig_hooks/**/*.yaml" }
+
+lwc_sylius_notifier: ~
+
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+
+    notifier:
+        channel_policy:
+            urgent: [ 'email' ]
+            high: [ 'email' ]
+            medium: [ 'email' ]
+            low: [ 'email' ]
+        admin_recipients:
+            - { email: admin@example.com }
+
+sylius_grid:
+    templates:
+        action:
+            preview_notification_template: "@LWCSyliusNotifierPlugin/admin/Grid/Action/previewNotificationTemplate.html.twig"
+
+sylius_mailer:
+    emails:
+        contact_request:
+            enabled: false
+        order_confirmation:
+            enabled: false
+        user_registration:
+            enabled: false
+        password_reset:
+            enabled: false
+        reset_password_token:
+            enabled: false
+        reset_password_pin:
+            enabled: false
+        verification_token:
+            enabled: false
+        order_confirmation_resent:
+            enabled: false
+        shipment_confirmation:
+            enabled: false
+        account_verification_token:
+            enabled: false
+
+twig:
+    paths:
+        '%kernel.project_dir%/public/bundles/lwcsyliusnotifierplugin': notifier_public_dir
+

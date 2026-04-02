@@ -3,3 +3,7 @@ lwc_sylius_notifier_admin:
 
 lwc_sylius_notifier_shop:
     resource: "@LWCSyliusNotifierPlugin/config/routes/shop.yaml"
+
+
+monsieur_biz_plugin:
+    resource: "@MonsieurBizSyliusRichEditorPlugin/Resources/config/routing/admin.yaml"

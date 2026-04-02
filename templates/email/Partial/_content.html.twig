@@ -1,0 +1,5 @@
+<columns class="wrapper-content">
+    {% autoescape %}
+        {{ body|render_notification_template(data, is_preview)|monsieurbiz_richeditor_render_field|replace(data)|replace_empty_variable|raw }}
+    {% endautoescape %}
+</columns>

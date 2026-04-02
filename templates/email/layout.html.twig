@@ -1,0 +1,16 @@
+{% if body is not defined %}
+    {% set body = '' %}
+{% endif %}
+
+{% apply inky_to_html|inline_css(source('@notifier_public_dir/css/email.css')) %}
+    <container>
+        {% include '@LWCSyliusNotifierPlugin/email/Partial/_header.html.twig' %}
+        <row class="wrapper">
+            {% include '@LWCSyliusNotifierPlugin/email/Partial/_content.html.twig' with {
+                'body': body,
+                'data': data
+            } %}
+        </row>
+        {% include '@LWCSyliusNotifierPlugin/email/Partial/_footer.html.twig' %}
+    </container>
+{% endapply %}

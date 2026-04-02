@@ -1,0 +1,3 @@
+lwc_sylius_notifier:
+    notification_template:
+        not_blank: This field must not be blank.

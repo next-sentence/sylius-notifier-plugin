@@ -1,0 +1,7 @@
+{% autoescape %}
+    {% include '@LWCSyliusNotifierPlugin/email/layout.html.twig' with {
+        'is_preview': false,
+        'body': body,
+        'data': data,
+    } %}
+{% endautoescape %}

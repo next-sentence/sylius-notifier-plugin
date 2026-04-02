@@ -1,0 +1,56 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.notification_template.update.content':
+            form:
+                component: 'sylius_admin:lwc_notifier:notification_template:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                    method: PUT
+                priority: 0
+
+        'sylius_admin.notification_template.update.content.form':
+            sections:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections.html.twig'
+                priority: 0
+
+        'sylius_admin.notification_template.update.content.form.sections':
+            general:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general.html.twig'
+                priority: 200
+            translations:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/translations.html.twig'
+                priority: 100
+
+        'sylius_admin.notification_template.update.content.form.sections.general':
+            default:
+                enabled: false
+            enabled:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general/enabled.html.twig'
+                priority: 500
+            code:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general/code.html.twig'
+                priority: 400
+            type:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general/type.html.twig'
+                priority: 300
+            from:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general/from.html.twig'
+                priority: 200
+            channel:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/general/channel.html.twig'
+                priority: 100
+
+        'sylius_admin.notification_template.update.content.form.sections.translations':
+            name:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/translations/name.html.twig'
+                priority: 300
+            subject:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/translations/subject.html.twig'
+                priority: 200
+            body:
+                template: '@LWCSyliusNotifierPlugin/admin/notification_template/form/sections/translations/body.html.twig'
+                priority: 100

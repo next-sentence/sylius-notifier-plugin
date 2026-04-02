@@ -1,1 +1,5 @@
-# Define your own admin routes here
+lwc_sylius_notifier_admin_notification_template:
+    resource: "@LWCSyliusNotifierPlugin/config/routes/admin/notification_template.yaml"
+
+lwc_sylius_notifier_admin_notification:
+    resource: "@LWCSyliusNotifierPlugin/config/routes/admin/notification.yaml"

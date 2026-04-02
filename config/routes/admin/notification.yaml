@@ -1,0 +1,15 @@
+lwc_sylius_notifier_admin_notification:
+    resource: |
+        alias: lwc_sylius_notifier.notification
+        section: admin
+        templates: '@SyliusAdmin\\shared\\crud'
+        except: ['show']
+        redirect: index
+        grid: lwc_sylius_notifier_admin_notification
+        permission: true
+        vars:
+            all:
+                subheader: lwc_sylius_notifier.ui.manage_notifications
+            index:
+                icon: 'envelope'
+    type: sylius.resource

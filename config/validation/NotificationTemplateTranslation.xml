@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+    <class name="LWC\SyliusNotifierPlugin\Model\NotificationTemplateTranslation">
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template_translation.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="subject">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template_translation.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="body">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template_translation.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

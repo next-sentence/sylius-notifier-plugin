@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+    <class name="LWC\SyliusNotifierPlugin\Model\NotificationTemplate">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>code</value>
+            </option>
+            <option name="message">lwc_sylius_notifier.notification_template.code.unique</option>
+            <option name="groups">
+                <value>notification_template</value>
+            </option>
+        </constraint>
+        <property name="code">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template.code.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="type">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="channel">
+            <constraint name="NotBlank">
+                <option name="message">lwc_sylius_notifier.notification_template.not_blank</option>
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="translations">
+            <constraint name="Valid">
+                <option name="groups">
+                    <value>notification_template</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

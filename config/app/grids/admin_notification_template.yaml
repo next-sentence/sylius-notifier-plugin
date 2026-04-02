@@ -1,0 +1,78 @@
+sylius_grid:
+    grids:
+        lwc_sylius_notifier_admin_notification_template:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: '%lwc_sylius_notifier.model.notification_template.class%'
+                    repository:
+                        method: createListQueryBuilder
+                        arguments: ["%locale%"]
+            sorting:
+                createdAt: desc
+            limits: [50]
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                name:
+                    type: string
+                    label: sylius.ui.name
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                channel:
+                    type: twig
+                    label: lwc_sylius_notifier.ui.channel
+                    options:
+                        template: "@LWCSyliusNotifierPlugin/admin/Grid/Field/label.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.created_at
+                    sortable: ~
+                    options:
+                        format: d-m-Y H:i:s
+            filters:
+                search:
+                    type: string
+                    options:
+                        fields: [code, translation.name]
+                enabled:
+                    type: boolean
+            actions:
+                main:
+                    create:
+                        type: links
+                        label: sylius.ui.create
+                        options:
+                            links:
+                                create_email_template:
+                                    label: lwc_sylius_notifier.ui.add_notification_template_email
+                                    icon: plus
+                                    route: lwc_sylius_notifier_admin_notification_template_create_by_channel
+                                    parameters:
+                                        channel: email
+                                create_sms_template:
+                                    label: lwc_sylius_notifier.ui.add_notification_template_sms
+                                    icon: plus
+                                    route: lwc_sylius_notifier_admin_notification_template_create_by_channel
+                                    parameters:
+                                        channel: sms
+                            class: primary
+                            icon: plus
+                            header:
+                                icon: cube
+                                label: sylius.ui.type
+                item:
+                    update:
+                        type: update
+                    preview:
+                        type: preview_notification_template
+                        label: lwc_sylius_notifier.button.preview_notification_template
+                        options:
+                            link:
+                                route: lwc_sylius_notifier_admin_notification_template_preview
+                                parameters:
+                                    code: resource.code

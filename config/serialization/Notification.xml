@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<serializer xmlns="http://symfony.com/schema/dic/serializer-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
+>
+    <class name="LWC\SyliusNotifierPlugin\Model\NotificationInterface">
+        <attribute name="id">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="code">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="priority">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="enabled">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="body">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="startDate">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="endDate">
+            <group>shop:notification:read</group>
+        </attribute>
+        <attribute name="createdAt">
+            <group>shop:notification:read</group>
+        </attribute>
+    </class>
+</serializer>

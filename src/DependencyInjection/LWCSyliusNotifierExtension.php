@@ -18,7 +18,10 @@ final class LWCSyliusNotifierExtension extends AbstractResourceExtension impleme
     /** @psalm-suppress UnusedVariable */
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+
+        $this->registerResources('lwc_sylius_notifier', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.xml');
     }

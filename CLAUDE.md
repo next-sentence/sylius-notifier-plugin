@@ -4,11 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Identity
 
-This is **LWC Sylius Notifier Plugin** (`lwc/sylius-notifier-plugin`), a Sylius 2.0 e-commerce plugin. Built on the Sylius Plugin Skeleton with `sylius/test-application` for isolated development and testing.
+This is **LWC Sylius Notifier Plugin** (`lwc/sylius-notifier-plugin`), a Sylius 2.0 e-commerce plugin that replaces Sylius's built-in email system with a template-driven notification system using Symfony Notifier/Mailer, monsieurbiz/sylius-rich-editor-plugin for content editing, and Inky/CSS inliner for professional email rendering.
 
 - **Namespace**: `LWC\SyliusNotifierPlugin`
 - **Test namespace**: `Tests\LWC\SyliusNotifierPlugin`
 - **PHP**: ^8.2, **Sylius**: ^2.0, **Symfony**: ^7.4
+- **DI prefix**: `lwc_sylius_notifier`
+- **Table prefix**: `lwc_sylius_notifier__`
 
 ## Development Commands
 
@@ -39,26 +41,12 @@ composer run test-app-init     # Full reset (database + frontend)
 
 ### Docker
 ```bash
-# Uses compose.yml with PHP 8.3, MySQL 8.4, Nginx, Mailhog
-docker compose up -d
-# Copy compose.override.dist.yml to compose.override.yml for local customization
+docker compose up -d  # PHP 8.3, MySQL 8.4, Nginx, Mailhog
 ```
 
 ### Testing
 ```bash
-# PHPUnit
 vendor/bin/phpunit
-
-# Behat (non-JS)
-vendor/bin/behat --strict --tags="~@javascript&&~@mink:chromedriver"
-
-# Behat (JS) - requires Chrome headless + Symfony server on port 8080
-APP_ENV=test symfony server:start --port=8080 --daemon
-vendor/bin/behat --strict --tags="@javascript,@mink:chromedriver"
-```
-
-### Code Quality
-```bash
 vendor/bin/phpstan analyse -c phpstan.neon -l max src/
 vendor/bin/ecs check
 ```
@@ -66,31 +54,47 @@ vendor/bin/ecs check
 ## Architecture
 
 ### Plugin Entry Points
-- `src/LWCSyliusNotifierPlugin.php` - Bundle class using `SyliusPluginTrait`, overrides `getPath()` to point to project root
-- `src/DependencyInjection/LWCSyliusNotifierExtension.php` - Extends `AbstractResourceExtension`, loads `config/services.xml`, prepends Doctrine migrations
-- `src/DependencyInjection/Configuration.php` - TreeBuilder configuration
+- `src/LWCSyliusNotifierPlugin.php` - Extends `AbstractResourceBundle` with `SyliusPluginTrait`, exposes model namespace for Doctrine mapping
+- `src/DependencyInjection/LWCSyliusNotifierExtension.php` - Registers Sylius resources (`notification`, `notification_template`), loads services, prepends Doctrine migrations
+- `src/DependencyInjection/Configuration.php` - Defines resource tree with model/controller/factory/repository/form classes for both resources
+
+### Entities
+- **Notification** - In-app notifications with date ranges, priority, user segmentation, and rich editor body content
+- **NotificationTemplate** - Email/SMS templates with translatable name/subject/body, channel types (email/sms/in_app), type (simple/custom)
+- **NotificationTemplateTranslation** - Locale-specific content for templates
+
+### Email Flow
+1. Sylius event triggers (order, password reset, verification, etc.)
+2. `EventListener/MailerListener` or `EmailManager/*` dispatches `CreateNotification` message to Symfony Messenger
+3. `MessageHandler/CreateNotificationHandler` finds template by code, creates `EmailNotification`
+4. Symfony Notifier sends email using `Notifier/Message/EmailNotification` which renders `templates/email/dynamic.html.twig`
+5. Template applies Inky Framework (HTML table layout) + CSS inlining + rich editor rendering + variable replacement
+
+### Service Decorators
+The plugin decorates Sylius email managers to route all emails through the notification template system:
+- `EmailManager/AdminOrderEmailManager` decorates admin order email
+- `EmailManager/ShopOrderEmailManager` decorates shop order email
+- `EmailManager/ShipmentEmailManager` decorates shipment email
+- `Mailer/OrderEmailManager` decorates the base order email manager
 
 ### Configuration Layout
-- `config/services.xml` - Service definitions (imports from `config/services/` subdirectory)
-- `config/config.yaml` - Plugin config, imports twig hooks
-- `config/routes/admin.yaml` and `config/routes/shop.yaml` - Route definitions
-- `config/twig_hooks/` - Twig hook YAML configs for extending Sylius templates
+- `config/services.xml` - Imports service sub-files from `config/services/`
+- `config/config.yaml` - Plugin config, grid imports, mailer/notifier config, disables Sylius built-in emails
+- `config/routes/admin/` - Sylius CRUD routes for notifications and templates
+- `config/doctrine/model/` - Doctrine ORM XML mappings
+- `config/validation/` - Symfony validation XML constraints
+- `config/serialization/` - Serializer group mappings for API
+- `config/app/grids/` - Sylius Grid configurations for admin CRUD
 
-### Test Application
-The plugin runs inside `vendor/sylius/test-application`. Configuration lives in `tests/TestApplication/`:
-- `config/bundles.php` - Registers plugin bundle
-- `config/config.yaml` - Test app config
-- `config/services_test.php` - Test service overrides
-- `.env` - Database URL, bundle/config/route imports using `@LWCSyliusNotifierPlugin` Twig namespace
+### Key Dependencies
+- `monsieurbiz/sylius-rich-editor-plugin` - WYSIWYG editor for notification body content
+- `symfony/notifier` + `symfony/mailer` - Email sending infrastructure
+- `twig/inky-extra` - Converts Inky markup to responsive HTML email tables
+- `twig/cssinliner-extra` - Inlines CSS into HTML for email client compatibility
 
 ### Naming Conventions
-- Service XML uses `config/services/` for organized sub-files imported via `config/services.xml`
-- Twig templates reference the plugin as `@LWCSyliusNotifierPlugin`
-- Database name pattern: `lwc_sylius_notifier_plugin_{environment}`
-- DI extension alias follows Symfony convention (snake_case of plugin name)
-
-## AI Development Guides
-
-- **CLEANUP_GUIDE.md** - Removing example/demo code from the skeleton
-- **RENAME_GUIDE.md** - Renaming plugin namespace and all references
-- **COMPATIBILITY_GUIDE.md** - Supporting multiple Sylius versions (1.14, 2.0, 2.1)
+- Twig templates: `@LWCSyliusNotifierPlugin`
+- Sylius resource aliases: `lwc_sylius_notifier.notification`, `lwc_sylius_notifier.notification_template`
+- Route prefix: `lwc_sylius_notifier_admin_`
+- Translation prefix: `lwc_sylius_notifier.`
+- Database tables: `lwc_sylius_notifier__notification`, `lwc_sylius_notifier__notification_template`

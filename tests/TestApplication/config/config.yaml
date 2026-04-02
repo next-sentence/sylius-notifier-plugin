@@ -1,5 +1,6 @@
 imports:
     - { resource: "@LWCSyliusNotifierPlugin/config/config.yaml" }
+    - { resource: "@MonsieurBizSyliusRichEditorPlugin/Resources/config/config.yaml" }
     - { resource: "services_test.php" }
 
 twig:

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace LWC\SyliusNotifierPlugin;
 
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-final class LWCSyliusNotifierPlugin extends Bundle
+final class LWCSyliusNotifierPlugin extends AbstractBundle
 {
     use SyliusPluginTrait;
 

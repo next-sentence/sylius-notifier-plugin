@@ -1,1 +1,1 @@
-import './js/greetings';
+// LWC Sylius Notifier Plugin - Shop entrypoint

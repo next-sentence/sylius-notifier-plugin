@@ -1,0 +1,53 @@
+lwc_sylius_notifier_admin_notification_template:
+    resource: |
+        alias: lwc_sylius_notifier.notification_template
+        section: admin
+        templates: '@SyliusAdmin\\shared\\crud'
+        except: ['show','create']
+        redirect: index
+        grid: lwc_sylius_notifier_admin_notification_template
+        permission: true
+        vars:
+            all:
+                subheader: lwc_sylius_notifier.ui.manage_notification_templates
+            index:
+                icon: 'envelope'
+    type: sylius.resource
+
+lwc_sylius_notifier_admin_notification_template_create_by_channel:
+    path: /notification-templates/{channel}/new
+    methods: [GET, POST]
+    requirements:
+        channel: email|sms
+    defaults:
+        _controller: lwc_sylius_notifier.controller.notification_template::createAction
+        _sylius:
+            template: '@SyliusAdmin\shared\crud\create.html.twig'
+            redirect: lwc_sylius_notifier_admin_notification_template_index
+            factory:
+                method: createNewByChannel
+                arguments:
+                    channel: $channel
+            section: admin
+            vars:
+                header: "lwc_sylius_notifier.ui.add_notification_template"
+                subheader: "lwc_sylius_notifier.ui.notification_templates_subheader"
+                icon: 'add'
+                route:
+                    name: lwc_sylius_notifier_admin_notification_template_create_by_channel
+                    parameters:
+                        channel: $channel
+                index:
+                    route:
+                        name: lwc_sylius_notifier_admin_notification_template_index
+
+lwc_sylius_notifier_admin_notification_template_preview:
+    path: /notification-templates/{code}/preview
+    methods: [GET]
+    defaults:
+        _controller: lwc_sylius_notifier.controller.notification_template::showAction
+        _sylius:
+            template: '@LWCSyliusNotifierPlugin/email/preview.html.twig'
+            repository:
+                method: findOneBy
+                arguments: [code: $code]

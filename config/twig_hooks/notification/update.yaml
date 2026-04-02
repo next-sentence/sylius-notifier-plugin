@@ -1,0 +1,56 @@
+sylius_twig_hooks:
+    hooks:
+        'sylius_admin.notification.update.content':
+            form:
+                component: 'sylius_admin:lwc_notifier:notification:form'
+                props:
+                    resource: '@=_context.resource'
+                    form: '@=_context.form'
+                    template: '@SyliusAdmin/shared/crud/common/content/form.html.twig'
+                configuration:
+                    render_rest: false
+                    method: PUT
+                priority: 0
+
+        'sylius_admin.notification.update.content.form':
+            sections:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections.html.twig'
+                priority: 0
+
+        'sylius_admin.notification.update.content.form.sections':
+            general:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/general.html.twig'
+                priority: 200
+            settings:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/settings.html.twig'
+                priority: 100
+
+        'sylius_admin.notification.update.content.form.sections.general':
+            default:
+                enabled: false
+            code:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/general/code.html.twig'
+                priority: 500
+            enabled:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/general/enabled.html.twig'
+                priority: 400
+            description:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/general/description.html.twig'
+                priority: 300
+            body:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/general/body.html.twig'
+                priority: 200
+
+        'sylius_admin.notification.update.content.form.sections.settings':
+            only_logged_in_users:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/settings/only_logged_in_users.html.twig'
+                priority: 400
+            priority:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/settings/priority.html.twig'
+                priority: 300
+            start_date:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/settings/start_date.html.twig'
+                priority: 200
+            end_date:
+                template: '@LWCSyliusNotifierPlugin/admin/notification/form/sections/settings/end_date.html.twig'
+                priority: 100

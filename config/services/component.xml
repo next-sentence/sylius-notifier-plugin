@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service
+            id="lwc_sylius_notifier.twig.component.notification_template.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="lwc_sylius_notifier.repository.notification_template" />
+            <argument type="service" id="form.factory" />
+            <argument>%lwc_sylius_notifier.model.notification_template.class%</argument>
+            <argument>LWC\SyliusNotifierPlugin\Form\Type\NotificationTemplateType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_admin:lwc_notifier:notification_template:form" />
+        </service>
+
+        <service
+            id="lwc_sylius_notifier.twig.component.notification.form"
+            class="Sylius\Bundle\UiBundle\Twig\Component\ResourceFormComponent"
+        >
+            <argument type="service" id="lwc_sylius_notifier.repository.notification" />
+            <argument type="service" id="form.factory" />
+            <argument>%lwc_sylius_notifier.model.notification.class%</argument>
+            <argument>LWC\SyliusNotifierPlugin\Form\Type\NotificationType</argument>
+
+            <tag name="sylius.live_component.admin" key="sylius_admin:lwc_notifier:notification:form" />
+        </service>
+    </services>
+</container>

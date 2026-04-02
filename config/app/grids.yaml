@@ -1,0 +1,3 @@
+imports:
+    - { resource: "grids/admin_notification_template.yaml" }
+    - { resource: "grids/admin_notification.yaml" }

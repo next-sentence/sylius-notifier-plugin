@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="lwc_sylius_notifier.form.type.notification_template.validation_groups" type="collection">
+            <parameter>notification_template</parameter>
+        </parameter>
+        <parameter key="lwc_sylius_notifier.form.type.notification.validation_groups" type="collection">
+            <parameter>notification</parameter>
+        </parameter>
+    </parameters>
+    <services>
+        <service id="lwc_sylius_notifier.form.type.notification_template"
+                 class="LWC\SyliusNotifierPlugin\Form\Type\NotificationTemplateType">
+            <argument>%lwc_sylius_notifier.model.notification_template.class%</argument>
+            <argument>%lwc_sylius_notifier.form.type.notification_template.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="lwc_sylius_notifier.form.type.notification_template_translation"
+                 class="LWC\SyliusNotifierPlugin\Form\Type\Translation\NotificationTemplateTranslationType">
+            <argument>%lwc_sylius_notifier.model.notification_template_translation.class%</argument>
+            <argument>%lwc_sylius_notifier.form.type.notification_template.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="lwc_sylius_notifier.form.type.notification"
+                 class="LWC\SyliusNotifierPlugin\Form\Type\NotificationType">
+            <argument>%lwc_sylius_notifier.model.notification.class%</argument>
+            <argument>%lwc_sylius_notifier.form.type.notification.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+    </services>
+</container>
