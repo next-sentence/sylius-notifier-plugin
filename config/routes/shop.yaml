@@ -1,0 +1,13 @@
+# Delete these routes and define your own shop routes here
+
+lwc_sylius_notifier_static_welcome:
+    path: /static-welcome/{name}
+    defaults:
+        _controller: LWC\SyliusNotifierPlugin\Controller\GreetingController::staticallyGreetAction
+        name: ~
+
+lwc_sylius_notifier_dynamic_welcome:
+    path: /dynamic-welcome/{name}
+    defaults:
+        _controller: LWC\SyliusNotifierPlugin\Controller\GreetingController::dynamicallyGreetAction
+        name: ~

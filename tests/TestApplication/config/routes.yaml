@@ -1,0 +1,5 @@
+lwc_sylius_notifier_admin:
+    resource: "@LWCSyliusNotifierPlugin/config/routes/admin.yaml"
+
+lwc_sylius_notifier_shop:
+    resource: "@LWCSyliusNotifierPlugin/config/routes/shop.yaml"
