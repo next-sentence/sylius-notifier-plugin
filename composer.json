@@ -1,5 +1,5 @@
 {
-    "name": "lwc/sylius-notifier-plugin",
+    "name": "next-sentence/sylius-notifier-plugin",
     "type": "sylius-plugin",
     "description": "Notifier plugin for Sylius",
     "keywords": [
