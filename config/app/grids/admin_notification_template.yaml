@@ -22,7 +22,7 @@ sylius_grid:
                     type: twig
                     label: sylius.ui.enabled
                     options:
-                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                        template: "@SyliusAdmin/shared/grid/field/enabled.html.twig"
                 channel:
                     type: twig
                     label: lwc_sylius_notifier.ui.channel
@@ -50,18 +50,18 @@ sylius_grid:
                             links:
                                 create_email_template:
                                     label: lwc_sylius_notifier.ui.add_notification_template_email
-                                    icon: plus
+                                    icon: tabler:plus
                                     route: lwc_sylius_notifier_admin_notification_template_create_by_channel
                                     parameters:
                                         channel: email
                                 create_sms_template:
                                     label: lwc_sylius_notifier.ui.add_notification_template_sms
-                                    icon: plus
+                                    icon: tabler:plus
                                     route: lwc_sylius_notifier_admin_notification_template_create_by_channel
                                     parameters:
                                         channel: sms
                             class: primary
-                            icon: plus
+                            icon: tabler:plus
                             header:
                                 icon: cube
                                 label: sylius.ui.type
