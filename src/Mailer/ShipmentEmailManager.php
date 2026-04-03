@@ -28,7 +28,7 @@ final class ShipmentEmailManager implements ShipmentEmailManagerInterface
         Assert::notNull($email);
 
         $this->messageBus->dispatch(new CreateNotification(
-            Emails::SHIPMENT_CONFIRMATION_RESENT,
+            Emails::SHIPMENT_CONFIRMATION,
             $email,
             array_merge([
                 '%TRACKING_CODE%' => $shipment->getTracking(),
@@ -44,7 +44,7 @@ final class ShipmentEmailManager implements ShipmentEmailManagerInterface
         Assert::notNull($email);
 
         $this->messageBus->dispatch(new CreateNotification(
-            Emails::SHIPMENT_CONFIRMATION,
+            Emails::SHIPMENT_CONFIRMATION_RESENT,
             $email,
             array_merge([
                 '%TRACKING_CODE%' => $shipment->getTracking(),
